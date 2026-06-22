@@ -1,1 +1,337 @@
+<index.html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Algorithmic Trading Portfolio — Ganesh M</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',system-ui,sans-serif;background:#F7F5F0;color:#1A1A2E;-webkit-font-smoothing:antialiased;}
+:root{
+  --navy:#0B1E3D;--navy2:#142B52;--navy3:#1C3566;
+  --gold:#C99A2E;--gold-lt:#E8C25A;
+  --cream:#F7F5F0;--cream2:#EFEBDD;
+  --card:#FFFFFF;--ink:#1A1A2E;--gray:#5C5A66;
+  --rule:#E3DFD2;--shadow:0 12px 32px -14px rgba(11,30,61,.22);
+  --blue:#2E5EAA;--purple:#6C4AB6;--teal:#1B9C85;--orange:#E08E45;--crimson:#C0392B;
+  --green:#1F8A70;--amber:#D79A1E;--red:#C0392B;
+}
+a{color:inherit;text-decoration:none;}
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-.01em;}
+.mono{font-family:'IBM Plex Mono',monospace;}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;}
 
+/* NAV */
+.nav{position:sticky;top:0;z-index:50;background:rgba(11,30,61,.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08);}
+.nav-inner{max-width:1080px;margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.brand{display:flex;align-items:center;gap:9px;color:#fff;font-family:'Fraunces',serif;font-weight:600;font-size:1rem;}
+.brand .dot{width:8px;height:8px;border-radius:50%;background:var(--gold-lt);}
+.nav-links{display:flex;gap:24px;font-size:.83rem;color:#C9D2E3;}
+.nav-links a{opacity:.8;transition:opacity .2s;}
+.nav-links a:hover{opacity:1;color:var(--gold-lt);}
+.nav-cta{background:var(--gold);color:var(--navy);font-weight:700;font-size:.8rem;padding:8px 16px;border-radius:999px;transition:background .2s;}
+.nav-cta:hover{background:var(--gold-lt);}
+@media(max-width:700px){.nav-links{display:none;}}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:56px 0 0;}
+.hero-inner{padding-bottom:50px;}
+.hero h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.07;margin-top:12px;max-width:740px;}
+.hero .lead{font-size:1.05rem;color:#C9D2E3;max-width:540px;margin-top:16px;line-height:1.65;}
+.hero-meta{margin-top:30px;display:flex;gap:26px;flex-wrap:wrap;font-size:.82rem;color:#9FAEC9;}
+.hero-meta strong{color:#fff;font-weight:600;}
+
+/* TICKER */
+.ticker{border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);overflow:hidden;white-space:nowrap;padding:12px 0;}
+.ticker-track{display:inline-block;padding-left:100%;animation:ticker 28s linear infinite;font-family:'IBM Plex Mono',monospace;font-size:.75rem;letter-spacing:.05em;color:var(--gold-lt);}
+.ticker-track span{color:#C9D2E3;margin:0 10px;}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* SECTIONS */
+.section{padding:76px 0;}
+.section.dark{background:var(--navy);color:#fff;}
+.section.alt{background:var(--cream2);}
+.section.pinkbg{background:#FBF4F1;}
+.section h2{font-size:clamp(1.5rem,3vw,2.1rem);}
+.section .eyebrow{color:var(--gold);display:block;margin-bottom:10px;}
+.section.dark .eyebrow{color:var(--gold-lt);}
+.section h2.light{color:#fff;}
+.sub{color:var(--gray);max-width:620px;margin-top:10px;font-size:.98rem;line-height:1.65;}
+.sub.light{color:#9FAEC9;}
+
+/* STAT CARDS */
+.stat-grid{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px;}
+.stat-card{flex:1 1 200px;background:var(--card);border-radius:14px;padding:20px 18px;box-shadow:var(--shadow);}
+.stat-card.b1{border-top:4px solid var(--blue);}
+.stat-card.b2{border-top:4px solid var(--teal);}
+.stat-card.b3{border-top:4px solid var(--amber);}
+.stat-card.b4{border-top:4px solid var(--purple);}
+.stat-card .big{font-family:'Fraunces',serif;font-size:1.55rem;font-weight:600;color:var(--navy);line-height:1.2;}
+.stat-card .sm{margin-top:7px;font-size:.8rem;color:var(--gray);}
+
+/* BULLETS */
+.bullets{margin-top:34px;display:flex;flex-direction:column;gap:14px;}
+.bullet{display:flex;gap:12px;align-items:flex-start;}
+.bullet .pip{min-width:7px;height:7px;border-radius:50%;background:var(--gold);margin-top:8px;}
+.bullet p{color:var(--ink);font-size:.95rem;line-height:1.55;}
+
+/* COMPARISON TABLE */
+.tbl-wrap{background:var(--card);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);overflow-x:auto;}
+table{width:100%;border-collapse:collapse;min-width:660px;}
+thead tr{background:var(--navy);}
+thead th{color:#fff;text-align:left;font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;padding:15px 16px;font-weight:600;}
+tbody td{padding:15px 16px;font-size:.9rem;border-bottom:1px solid var(--rule);color:var(--ink);}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--cream2);}
+tbody td:first-child{font-weight:700;color:var(--navy);position:relative;padding-left:22px;}
+tbody td:first-child::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;}
+tbody tr:nth-child(1) td:first-child::before{background:var(--blue);}
+tbody tr:nth-child(2) td:first-child::before{background:var(--purple);}
+tbody tr:nth-child(3) td:first-child::before{background:var(--teal);}
+tbody tr:nth-child(4) td:first-child::before{background:var(--orange);}
+tbody tr:nth-child(5) td:first-child::before{background:var(--crimson);}
+.tbl-note{margin-top:18px;font-size:.86rem;color:var(--gray);line-height:1.6;max-width:680px;}
+
+/* EXPOSURE BARS */
+.chart-card{background:var(--card);border-radius:14px;padding:28px 24px 20px;box-shadow:var(--shadow);}
+.bar-row{display:flex;align-items:center;gap:12px;margin:16px 0;}
+.bar-row .lbl{flex:0 0 160px;font-size:.86rem;font-weight:600;color:var(--navy);}
+.bar-line{display:flex;align-items:center;gap:12px;flex:1 1 auto;min-width:0;}
+.bar-track{flex:1 1 auto;min-width:0;background:var(--cream2);border-radius:6px;height:18px;overflow:hidden;}
+.bar-fill{display:block;height:100%;border-radius:6px;}
+.bar-row .bval{flex:0 0 auto;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:.85rem;color:var(--navy);}
+.chart-axis{margin-left:172px;margin-top:4px;font-size:.68rem;color:var(--gray);font-family:'IBM Plex Mono',monospace;}
+@media(max-width:560px){
+  .bar-row{display:block;}
+  .bar-row .lbl{display:block;margin-bottom:6px;}
+  .chart-axis{margin-left:0;}
+}
+
+/* STRATEGY CARDS */
+.scard{background:var(--navy3);border-radius:16px;padding:28px 26px;border-top:4px solid var(--blue);margin-bottom:18px;}
+.scard .stag{font-family:'IBM Plex Mono',monospace;font-size:.67rem;color:#9FAEC9;letter-spacing:.08em;text-transform:uppercase;}
+.scard h3{color:#fff;font-size:1.35rem;margin-top:6px;}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
+.badge{font-family:'IBM Plex Mono',monospace;font-size:.65rem;font-weight:600;letter-spacing:.05em;padding:5px 12px;border-radius:999px;color:#fff;text-transform:uppercase;}
+.scard .summary{color:#C9D2E3;margin-top:14px;font-size:.92rem;line-height:1.65;max-width:700px;}
+.spills{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px;}
+.spill{background:rgba(255,255,255,.07);border-radius:10px;padding:11px 16px;min-width:110px;}
+.spill .sv{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:600;color:#fff;}
+.spill .sl{font-size:.7rem;color:#9FAEC9;margin-top:3px;}
+.scard ul{margin:18px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;}
+.scard li{display:flex;gap:10px;font-size:.86rem;color:#D8DFEC;line-height:1.55;}
+.scard li::before{content:"";min-width:6px;height:6px;border-radius:50%;background:var(--gold-lt);margin-top:7px;}
+
+/* RISK */
+.risk-card{background:var(--card);border-left:4px solid var(--red);border-radius:10px;padding:17px 20px;box-shadow:var(--shadow);margin-bottom:12px;}
+.risk-card h4{color:var(--navy);font-size:.97rem;margin-bottom:6px;font-family:'Fraunces',serif;}
+.risk-card p{color:var(--gray);font-size:.87rem;line-height:1.6;}
+
+/* FOOTER */
+footer{background:var(--navy);color:#fff;padding:72px 0 36px;}
+footer .rule{width:56px;height:2px;background:var(--gold);margin-bottom:22px;}
+footer h2{font-size:clamp(1.8rem,5vw,2.5rem);color:#fff;}
+footer .lead{color:#C9D2E3;max-width:500px;margin-top:14px;line-height:1.65;}
+.contact-card{margin-top:30px;background:var(--navy2);border-radius:14px;padding:24px 26px;max-width:600px;}
+.contact-card .cname{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:600;color:#fff;margin-top:8px;}
+.phones{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px;}
+.phone-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);padding:9px 15px;border-radius:999px;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.82rem;transition:background .2s;}
+.phone-btn:hover{background:var(--gold);color:var(--navy);}
+.legal{margin-top:44px;font-size:.75rem;color:#6E7CA0;line-height:1.7;max-width:700px;border-top:1px solid rgba(255,255,255,.1);padding-top:20px;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="dot"></span>Algorithmic Trading Portfolio</div>
+    <div class="nav-links">
+      <a href="#glance">Overview</a>
+      <a href="#compare">Comparison</a>
+      <a href="#strategies">Strategies</a>
+      <a href="#risk">Risk</a>
+    </div>
+    <a class="nav-cta" href="#contact">Get in touch</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <span class="eyebrow" style="color:var(--gold-lt)">Quantitative Strategy Portfolio</span>
+    <h1>Five systematic trading strategies, built for disciplined, rule-based execution.</h1>
+    <p class="lead">A structured overview of five algorithmic trading systems spanning Forex, Gold, Indices and CFDs — prepared for prospective investor review.</p>
+    <div class="hero-meta">
+      <div><strong>5</strong> Strategies</div>
+      <div><strong>4</strong> Asset Classes</div>
+      <div><strong>100%</strong> Rule-Based</div>
+      <div><strong>June 2026</strong></div>
+    </div>
+  </div>
+  <div class="ticker">
+    <div class="ticker-track">
+      BOS FIBONACCI ATR · 1% RISK/TRADE <span>•</span> BOS + INDUCEMENT FIB · LIQUIDITY-SWEEP ENTRIES <span>•</span> MORTAL SCALPER v2.1 · TICK-LEVEL EXECUTION <span>•</span> RTX ADVANCED HEDGING · BASKET MANAGEMENT <span>•</span> EA TREND V1.8 · ADAPTIVE RECOVERY <span>•</span>
+      BOS FIBONACCI ATR · 1% RISK/TRADE <span>•</span> BOS + INDUCEMENT FIB · LIQUIDITY-SWEEP ENTRIES <span>•</span> MORTAL SCALPER v2.1 · TICK-LEVEL EXECUTION <span>•</span> RTX ADVANCED HEDGING · BASKET MANAGEMENT <span>•</span> EA TREND V1.8 · ADAPTIVE RECOVERY <span>•</span>
+    </div>
+  </div>
+</header>
+
+<!-- GLANCE -->
+<section class="section" id="glance">
+  <div class="wrap">
+    <span class="eyebrow">Executive Summary</span>
+    <h2>Portfolio at a glance</h2>
+    <p class="sub">Five independently engineered, fully systematic strategies — spanning institutional-style structure trading, liquidity-sweep entries, high-frequency tick scalping, and grid/basket-based approaches. Each is rule-based and emotion-free in execution.</p>
+    <div class="stat-grid">
+      <div class="stat-card b1"><div class="big">5</div><div class="sm">Systematic strategies</div></div>
+      <div class="stat-card b2"><div class="big">FX · Gold · Indices · CFDs</div><div class="sm">Multi-asset coverage</div></div>
+      <div class="stat-card b3"><div class="big">1%</div><div class="sm">Core risk-per-trade (structure strategies)</div></div>
+      <div class="stat-card b4"><div class="big">100%</div><div class="sm">Rule-based, no discretionary input</div></div>
+    </div>
+    <div class="bullets">
+      <div class="bullet"><div class="pip"></div><p><strong>Defined entries and exits</strong> — every strategy uses pre-set rules for trade triggers, stops and targets.</p></div>
+      <div class="bullet"><div class="pip"></div><p><strong>Layered filtering</strong> — session timing, spread conditions and news events are screened before entry.</p></div>
+      <div class="bullet"><div class="pip"></div><p><strong>Staged profit-taking</strong> — the structure strategies scale out in three tranches (40% / 40% / 20%) rather than all-or-nothing exits.</p></div>
+      <div class="bullet"><div class="pip"></div><p><strong>A risk spectrum, not a single bet</strong> — from $1 fixed-risk scalping to grid-based basket trading, covering different volatility and exposure profiles.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="section alt" id="compare">
+  <div class="wrap">
+    <span class="eyebrow">At a Glance</span>
+    <h2>Strategy comparison</h2>
+    <div class="tbl-wrap" style="margin-top:28px;">
+      <table id="compare-tbl">
+        <thead><tr><th>Strategy</th><th>Type</th><th>Risk / Trade</th><th>Loss Cap</th><th>Position Style</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="tbl-note">The two structure-based strategies (blue, purple) risk a fixed 1% of account equity per trade with a hard daily cap. The scalper (teal) risks a small fixed dollar amount and holds at most one position. The two hedging/grid strategies (orange, red) size risk in lots and average into baskets — a materially different exposure profile, detailed below.</p>
+  </div>
+</section>
+
+<!-- EXPOSURE CHART -->
+<section class="section" id="exposure">
+  <div class="wrap">
+    <span class="eyebrow">Visual Comparison</span>
+    <h2>Position exposure by strategy</h2>
+    <p class="sub">Maximum concurrent open positions is a useful proxy for exposure scale — showing how many simultaneous trades each strategy can carry at its busiest.</p>
+    <div class="chart-card" style="margin-top:28px;" id="barchart"></div>
+    <p class="tbl-note" style="margin-top:20px;">The structure-based and scalping strategies cap exposure at one to three concurrent positions. The two grid/hedging strategies can run into dozens or hundreds of simultaneous positions while averaging into adverse moves — a fundamentally different risk shape worth stress-testing against historical volatility events.</p>
+  </div>
+</section>
+
+<!-- STRATEGIES -->
+<section class="section dark" id="strategies">
+  <div class="wrap">
+    <span class="eyebrow">Strategy Profiles</span>
+    <h2 class="light">The five strategies, in detail</h2>
+    <p class="sub light" style="margin-bottom:32px;">Each profile covers the strategy's core stats, mechanics and risk classification, drawn directly from its specification.</p>
+    <div id="scards"></div>
+  </div>
+</section>
+
+<!-- RISK -->
+<section class="section pinkbg" id="risk">
+  <div class="wrap">
+    <span class="eyebrow" style="color:var(--red)">Risk Disclosure</span>
+    <h2>Important considerations</h2>
+    <div style="margin-top:28px;" id="rcards"></div>
+  </div>
+</section>
+
+<!-- FOOTER / CONTACT -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="rule"></div>
+    <h2>Thank you</h2>
+    <p class="lead">We welcome the opportunity to walk through live performance data, account statements and due-diligence materials for any of the five strategies in this portfolio.</p>
+    <div class="contact-card">
+      <span class="eyebrow" style="color:var(--gold-lt)">Contact</span>
+      <div class="cname">Ganesh M</div>
+      <div class="phones">
+        <a class="phone-btn" href="tel:+919600901095">📞 +91 96009 01095</a>
+        <a class="phone-btn" href="tel:+918754466566">📞 +91 87544 66566</a>
+      </div>
+    </div>
+    <p class="legal">This page summarizes strategy descriptions and parameters as provided by the strategy developer. Figures shown (risk %, drawdown caps, position limits) are stated specifications, not independently verified or audited trading results. Systematic, rule-based execution reduces emotional decision-making but does not eliminate market risk. Past or hypothetical performance is not a reliable indicator of future results. Before allocating capital, investors should request a verifiable live or walk-forward track record and review broker/account statements directly. This page is provided for informational and discussion purposes only and does not constitute investment, legal or financial advice. · Strictly Private &amp; Confidential · June 2026</p>
+  </div>
+</footer>
+
+<script>
+const ROWS=[
+  ["BOS Fibonacci ATR","Trend Breakout","1%","3% / 6%","Single, staged exit"],
+  ["BOS + Inducement Fib","Liquidity Sweep","1%","4% / 8%","Up to 3 staggered entries"],
+  ["Mortal Scalper v2.1","Tick Scalping","$1 fixed","$0.50 target","1 trade max"],
+  ["RTX Advanced Hedging","Grid / Basket","Lot-based","$50 basket SL","Up to 50 grid positions"],
+  ["EA Trend V1.8","Hedging Grid","Lot-based","30% max DD","Up to 200 combined"]
+];
+const tb=document.querySelector('#compare-tbl tbody');
+ROWS.forEach(r=>{const tr=document.createElement('tr');tr.innerHTML=r.map(c=>`<td>${c}</td>`).join('');tb.appendChild(tr);});
+
+const BARS=[
+  {n:"BOS Fibonacci ATR",v:1,c:"var(--blue)"},
+  {n:"BOS + Inducement Fib",v:3,c:"var(--purple)"},
+  {n:"Mortal Scalper v2.1",v:1,c:"var(--teal)"},
+  {n:"RTX Advanced Hedging",v:50,c:"var(--orange)"},
+  {n:"EA Trend V1.8",v:200,c:"var(--crimson)"}
+];
+const bc=document.getElementById('barchart');
+const LMN=Math.log10(0.8),LMX=Math.log10(400);
+BARS.forEach(b=>{
+  const pct=((Math.log10(b.v)-LMN)/(LMX-LMN))*100;
+  const row=document.createElement('div');row.className='bar-row';
+  row.innerHTML=`<div class="lbl">${b.n}</div><div class="bar-line"><div class="bar-track"><span class="bar-fill" style="width:${pct.toFixed(1)}%;background:${b.c};"></span></div><div class="bval">${b.v}</div></div>`;
+  bc.appendChild(row);
+});
+const ax=document.createElement('div');ax.className='chart-axis';ax.textContent='1 — — 10 — — 100 — — 400  (log scale, max concurrent positions)';bc.appendChild(ax);
+
+const STRATS=[
+  {name:"BOS Fibonacci ATR",tag:"Algorithmic Trading System",ac:"var(--blue)",type:"Trend-Following Breakout",risk:"Moderate",rc:"var(--amber)",
+   summary:"Trades confirmed Break of Structure (BOS) events. Fibonacci projections define dynamic stop-loss and profit targets, with ATR-based trailing stops to extend gains through strong trends.",
+   stats:[["1%","Risk / Trade"],["3%","Daily Drawdown Cap"],["6%","Daily Profit Lock"]],
+   feats:["Detects significant swing highs/lows, waits for a confirmed breakout","Multi-layer filter: market structure, higher-timeframe trend, session (London & NY), spread, news","Three-stage exit model — 40% / 40% / 20% — with automatic breakeven protection","Friday position liquidation to avoid weekend exposure","Built for Forex, Gold, Indices and CFDs"]},
+  {name:"BOS + Inducement Fibonacci",tag:"Algorithmic Trading System",ac:"var(--purple)",type:"Smart-Money / Liquidity Sweep",risk:"Moderate",rc:"var(--amber)",
+   summary:"Builds on BOS logic by waiting for a false retracement (inducement / liquidity sweep) before entering at discounted Fibonacci levels — designed to reduce false breakouts and improve entry precision.",
+   stats:[["1%","Risk / Trade"],["4%","Daily Loss Cap"],["8%","Daily Profit Lock"]],
+   feats:["Phase 1: confirms a genuine Break of Structure before any setup is considered","Phase 2: waits for the liquidity sweep that triggers retail stop-losses to complete","Phase 3: scales into up to three staggered entries at 50% / 61.8% / 78.6% retracement","Same 40% / 40% / 20% staged exit, breakeven adjustment and ATR trailing stop","Higher-timeframe trend confirmation, session and spread filters, news blackout windows"]},
+  {name:"Mortal Scalper v2.1",tag:"Tick Scalper",ac:"var(--teal)",type:"High-Frequency Tick Momentum",risk:"Conservative Exposure",rc:"var(--green)",
+   summary:"Reacts directly to incoming tick flow rather than waiting on candle closes — designed to capture short bursts of momentum within seconds, while keeping exposure deliberately small.",
+   stats:[["$1","Default Risk / Trade"],["$0.50","Profit Objective"],["1 Max","Position Count"]],
+   feats:["Continuously measures short-term tick momentum; only acts above a defined threshold","Single active position at a time — no martingale, no averaging, no grid exposure","Spread filtering before every entry","Automated breakeven lock at $0.20, trailing profit lock at $0.15","Broker stop-level validation built into trade management"]},
+  {name:"RTX Advanced Hedging EA",tag:"v3.10",ac:"var(--orange)",type:"Grid / Basket Averaging",risk:"Higher — Grid-Based",rc:"var(--red)",
+   summary:"Combines trend identification with progressive grid deployment, averaging into a basket of positions to improve entry price during temporary adverse moves, then managing risk at the basket level rather than per trade.",
+   stats:[["$3","Basket Target"],["$50","Basket Stop Loss"],["50","Max Grid Positions"]],
+   feats:["30-period moving average trend filter, RSI momentum validation, session selection","Configurable grid spacing with controlled lot progression, independent buy/sell baskets","Profits realized from the aggregate basket; automatic liquidation and signal reset on completion","Position growth is capped — but up to 50 concurrent grid positions","Note: averaging into adverse price moves carries the same structural risk as martingale systems; the cap limits but does not remove that risk in fast, trending markets"]},
+  {name:"EA Trend V1.8",tag:"Hedging Bot",ac:"var(--crimson)",type:"Adaptive Hedging Grid",risk:"Higher — Grid-Based",rc:"var(--red)",
+   summary:"Opens long and short positions according to internal trend logic, then manages exposure through progressive position expansion ('boosters') and basket-level take-profit / trailing closure, with an adaptive timeframe shift under drawdown stress.",
+   stats:[["30%","Max Drawdown"],["30 pips","Grid Distance"],["100+100","Max Positions"]],
+   feats:["Up to 100 buy and 100 sell positions simultaneously; booster multiplier 1.5×, capped at 1.0 lot","Basket take-profit, basket trailing closure and profit locking manage the portfolio as a whole","Adaptive recovery: shifts to H1 and becomes more selective once drawdown exceeds threshold, reverts to M15 after recovery","Recovery threshold set at 5%; maximum drawdown ceiling at 30%","Largest combined position count of the five strategies — sizing and risk limits warrant close scrutiny before allocation"]}
+];
+const sc=document.getElementById('scards');
+STRATS.forEach(s=>{
+  const d=document.createElement('div');d.className='scard';d.style.borderTopColor=s.ac;
+  d.innerHTML=`<div class="stag">${s.tag}</div><h3>${s.name}</h3>
+  <div class="badges"><span class="badge" style="background:${s.ac}">${s.type}</span><span class="badge" style="background:${s.rc}">${s.risk}</span></div>
+  <p class="summary">${s.summary}</p>
+  <div class="spills">${s.stats.map(([v,l])=>`<div class="spill"><div class="sv">${v}</div><div class="sl">${l}</div></div>`).join('')}</div>
+  <ul>${s.feats.map(f=>`<li>${f}</li>`).join('')}</ul>`;
+  sc.appendChild(d);
+});
+
+const RISKS=[
+  ["Source of this overview","This page summarizes strategy descriptions and parameters as provided by the strategy developer. Figures shown (risk %, drawdown caps, position limits) are stated specifications, not independently verified or audited trading results."],
+  ["No guarantee of returns","Systematic and rule-based execution reduces emotional decision-making but does not eliminate market risk. Past or hypothetical performance, where referenced elsewhere, is not a reliable indicator of future results."],
+  ["Grid and basket strategies carry distinct risk","RTX Advanced Hedging and EA Trend V1.8 use grid-style averaging into adverse price moves. Capped position counts and basket stop-losses limit but do not remove the structural risk associated with this approach, particularly in fast-moving or strongly trending markets."],
+  ["Independent verification recommended","Before allocating capital, investors should request a verifiable live or walk-forward track record, review broker/account statements directly, and consider independent backtesting across varied market regimes, including stress periods."],
+  ["Not financial advice","This page is provided for informational and discussion purposes only and does not constitute investment, legal or financial advice. Prospective investors should consult their own qualified advisors before making any investment decision."]
+];
+const rc=document.getElementById('rcards');
+RISKS.forEach(([t,b])=>{const d=document.createElement('div');d.className='risk-card';d.innerHTML=`<h4>${t}</h4><p>${b}</p>`;rc.appendChild(d);});
+</script>
+</body>
+</html>
