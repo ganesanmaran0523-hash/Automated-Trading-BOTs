@@ -1,337 +1,625 @@
-<index.html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Algorithmic Trading Portfolio — Ganesh M</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0;}
-html{scroll-behavior:smooth;}
-body{font-family:'Inter',system-ui,sans-serif;background:#F7F5F0;color:#1A1A2E;-webkit-font-smoothing:antialiased;}
-:root{
-  --navy:#0B1E3D;--navy2:#142B52;--navy3:#1C3566;
-  --gold:#C99A2E;--gold-lt:#E8C25A;
-  --cream:#F7F5F0;--cream2:#EFEBDD;
-  --card:#FFFFFF;--ink:#1A1A2E;--gray:#5C5A66;
-  --rule:#E3DFD2;--shadow:0 12px 32px -14px rgba(11,30,61,.22);
-  --blue:#2E5EAA;--purple:#6C4AB6;--teal:#1B9C85;--orange:#E08E45;--crimson:#C0392B;
-  --green:#1F8A70;--amber:#D79A1E;--red:#C0392B;
-}
-a{color:inherit;text-decoration:none;}
-h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-.01em;}
-.mono{font-family:'IBM Plex Mono',monospace;}
-.wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
-.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Automated Trading BOTs — Quantitative Strategy Portfolio</title>
+    <!-- Font & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        /* ---------- RESET & BASE ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0b0d15;
+            color: #e8edf5;
+            line-height: 1.6;
+            padding: 2rem 1.5rem;
+        }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
 
-/* NAV */
-.nav{position:sticky;top:0;z-index:50;background:rgba(11,30,61,.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08);}
-.nav-inner{max-width:1080px;margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
-.brand{display:flex;align-items:center;gap:9px;color:#fff;font-family:'Fraunces',serif;font-weight:600;font-size:1rem;}
-.brand .dot{width:8px;height:8px;border-radius:50%;background:var(--gold-lt);}
-.nav-links{display:flex;gap:24px;font-size:.83rem;color:#C9D2E3;}
-.nav-links a{opacity:.8;transition:opacity .2s;}
-.nav-links a:hover{opacity:1;color:var(--gold-lt);}
-.nav-cta{background:var(--gold);color:var(--navy);font-weight:700;font-size:.8rem;padding:8px 16px;border-radius:999px;transition:background .2s;}
-.nav-cta:hover{background:var(--gold-lt);}
-@media(max-width:700px){.nav-links{display:none;}}
+        /* ---------- ANIMATIONS ---------- */
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 8px rgba(0, 180, 255, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(0, 180, 255, 0.6); }
+        }
+        @keyframes slideInLeft {
+            0% { opacity: 0; transform: translateX(-40px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes countUp {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        .animate {
+            animation: fadeUp 0.7s ease forwards;
+        }
+        .animate-delay-1 { animation-delay: 0.1s; }
+        .animate-delay-2 { animation-delay: 0.25s; }
+        .animate-delay-3 { animation-delay: 0.4s; }
+        .animate-delay-4 { animation-delay: 0.55s; }
+        .animate-delay-5 { animation-delay: 0.7s; }
 
-/* HERO */
-.hero{background:linear-gradient(160deg,var(--navy) 0%,var(--navy2) 100%);color:#fff;padding:56px 0 0;}
-.hero-inner{padding-bottom:50px;}
-.hero h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.07;margin-top:12px;max-width:740px;}
-.hero .lead{font-size:1.05rem;color:#C9D2E3;max-width:540px;margin-top:16px;line-height:1.65;}
-.hero-meta{margin-top:30px;display:flex;gap:26px;flex-wrap:wrap;font-size:.82rem;color:#9FAEC9;}
-.hero-meta strong{color:#fff;font-weight:600;}
+        /* ---------- HEADER ---------- */
+        .header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+        .header .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #00b4ff, #7b2ffc);
+            padding: 0.35rem 1.4rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #f0f6ff, #7fc9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+        .header p {
+            font-size: 1.2rem;
+            color: #9aaec9;
+            max-width: 680px;
+            margin: 0.75rem auto 0;
+        }
 
-/* TICKER */
-.ticker{border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);overflow:hidden;white-space:nowrap;padding:12px 0;}
-.ticker-track{display:inline-block;padding-left:100%;animation:ticker 28s linear infinite;font-family:'IBM Plex Mono',monospace;font-size:.75rem;letter-spacing:.05em;color:var(--gold-lt);}
-.ticker-track span{color:#C9D2E3;margin:0 10px;}
-@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+        /* ---------- STATS ROW ---------- */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 24px;
+            padding: 1.8rem 2rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        .stats-row .stat-item {
+            animation: countUp 0.8s ease forwards;
+        }
+        .stats-row .stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
+        }
+        .stats-row .stat-number i {
+            color: #00b4ff;
+            margin-right: 6px;
+        }
+        .stats-row .stat-label {
+            font-size: 0.85rem;
+            color: #8ba0c0;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
 
-/* SECTIONS */
-.section{padding:76px 0;}
-.section.dark{background:var(--navy);color:#fff;}
-.section.alt{background:var(--cream2);}
-.section.pinkbg{background:#FBF4F1;}
-.section h2{font-size:clamp(1.5rem,3vw,2.1rem);}
-.section .eyebrow{color:var(--gold);display:block;margin-bottom:10px;}
-.section.dark .eyebrow{color:var(--gold-lt);}
-.section h2.light{color:#fff;}
-.sub{color:var(--gray);max-width:620px;margin-top:10px;font-size:.98rem;line-height:1.65;}
-.sub.light{color:#9FAEC9;}
+        /* ---------- PRICING BANNER ---------- */
+        .pricing-banner {
+            background: linear-gradient(135deg, #0f1a2e, #1a2744);
+            border-left: 5px solid #00b4ff;
+            border-radius: 18px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 3rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            animation: pulseGlow 3s infinite;
+        }
+        .pricing-banner .left {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+        .pricing-banner .left i {
+            font-size: 2.4rem;
+            color: #ffd966;
+        }
+        .pricing-banner .left h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .pricing-banner .left h3 span {
+            color: #ffd966;
+            background: rgba(255, 217, 102, 0.15);
+            padding: 0.1rem 0.8rem;
+            border-radius: 40px;
+        }
+        .pricing-banner .right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .pricing-banner .right .price-tag {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #fff;
+        }
+        .pricing-banner .right .price-tag small {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #9aaec9;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #00b4ff, #7b2ffc);
+            border: none;
+            color: #fff;
+            font-weight: 700;
+            padding: 0.8rem 2.2rem;
+            border-radius: 60px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 30px rgba(0, 180, 255, 0.4);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid #4a6a8f;
+            color: #c0d4f0;
+            font-weight: 600;
+            padding: 0.7rem 1.8rem;
+            border-radius: 60px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-outline:hover {
+            border-color: #00b4ff;
+            color: #fff;
+            background: rgba(0, 180, 255, 0.08);
+        }
 
-/* STAT CARDS */
-.stat-grid{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px;}
-.stat-card{flex:1 1 200px;background:var(--card);border-radius:14px;padding:20px 18px;box-shadow:var(--shadow);}
-.stat-card.b1{border-top:4px solid var(--blue);}
-.stat-card.b2{border-top:4px solid var(--teal);}
-.stat-card.b3{border-top:4px solid var(--amber);}
-.stat-card.b4{border-top:4px solid var(--purple);}
-.stat-card .big{font-family:'Fraunces',serif;font-size:1.55rem;font-weight:600;color:var(--navy);line-height:1.2;}
-.stat-card .sm{margin-top:7px;font-size:.8rem;color:var(--gray);}
+        /* ---------- STRATEGY GRID ---------- */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
 
-/* BULLETS */
-.bullets{margin-top:34px;display:flex;flex-direction:column;gap:14px;}
-.bullet{display:flex;gap:12px;align-items:flex-start;}
-.bullet .pip{min-width:7px;height:7px;border-radius:50%;background:var(--gold);margin-top:8px;}
-.bullet p{color:var(--ink);font-size:.95rem;line-height:1.55;}
+        .strategy-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 28px;
+            padding: 1.8rem 1.8rem 2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        .strategy-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 180, 255, 0.3);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.7);
+        }
+        .strategy-card .card-badge {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            background: rgba(0, 180, 255, 0.12);
+            color: #7fc9ff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+        .strategy-card .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .strategy-card .card-header .icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(0, 180, 255, 0.1);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: #00b4ff;
+        }
+        .strategy-card .card-header h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .strategy-card .card-sub {
+            font-size: 0.85rem;
+            color: #8ba0c0;
+            margin-bottom: 0.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+        }
+        .strategy-card .card-sub i {
+            margin-right: 4px;
+            color: #5f8bb3;
+        }
+        .strategy-card p {
+            color: #c8d6ec;
+            font-size: 0.95rem;
+            flex: 1;
+            margin: 0.4rem 0 1rem;
+        }
+        .strategy-card .risk-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.15rem 0.8rem;
+            border-radius: 40px;
+            background: rgba(255, 193, 7, 0.12);
+            color: #ffd966;
+            letter-spacing: 0.3px;
+        }
+        .strategy-card .risk-tag.moderate { background: rgba(0, 180, 255, 0.12); color: #7fc9ff; }
+        .strategy-card .risk-tag.higher { background: rgba(255, 107, 107, 0.12); color: #ff8a8a; }
+        .strategy-card .risk-tag.conservative { background: rgba(0, 230, 118, 0.12); color: #69db7c; }
 
-/* COMPARISON TABLE */
-.tbl-wrap{background:var(--card);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);overflow-x:auto;}
-table{width:100%;border-collapse:collapse;min-width:660px;}
-thead tr{background:var(--navy);}
-thead th{color:#fff;text-align:left;font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;padding:15px 16px;font-weight:600;}
-tbody td{padding:15px 16px;font-size:.9rem;border-bottom:1px solid var(--rule);color:var(--ink);}
-tbody tr:last-child td{border-bottom:none;}
-tbody tr:nth-child(even){background:var(--cream2);}
-tbody td:first-child{font-weight:700;color:var(--navy);position:relative;padding-left:22px;}
-tbody td:first-child::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;}
-tbody tr:nth-child(1) td:first-child::before{background:var(--blue);}
-tbody tr:nth-child(2) td:first-child::before{background:var(--purple);}
-tbody tr:nth-child(3) td:first-child::before{background:var(--teal);}
-tbody tr:nth-child(4) td:first-child::before{background:var(--orange);}
-tbody tr:nth-child(5) td:first-child::before{background:var(--crimson);}
-.tbl-note{margin-top:18px;font-size:.86rem;color:var(--gray);line-height:1.6;max-width:680px;}
+        .strategy-card .price-row {
+            margin-top: 1.2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .strategy-card .price-row .price {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #fff;
+        }
+        .strategy-card .price-row .price small {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #8ba0c0;
+        }
+        .strategy-card .price-row .btn-sm {
+            background: rgba(0, 180, 255, 0.12);
+            border: none;
+            color: #7fc9ff;
+            font-weight: 600;
+            padding: 0.5rem 1.4rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .strategy-card .price-row .btn-sm:hover {
+            background: rgba(0, 180, 255, 0.25);
+            color: #fff;
+        }
 
-/* EXPOSURE BARS */
-.chart-card{background:var(--card);border-radius:14px;padding:28px 24px 20px;box-shadow:var(--shadow);}
-.bar-row{display:flex;align-items:center;gap:12px;margin:16px 0;}
-.bar-row .lbl{flex:0 0 160px;font-size:.86rem;font-weight:600;color:var(--navy);}
-.bar-line{display:flex;align-items:center;gap:12px;flex:1 1 auto;min-width:0;}
-.bar-track{flex:1 1 auto;min-width:0;background:var(--cream2);border-radius:6px;height:18px;overflow:hidden;}
-.bar-fill{display:block;height:100%;border-radius:6px;}
-.bar-row .bval{flex:0 0 auto;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:.85rem;color:var(--navy);}
-.chart-axis{margin-left:172px;margin-top:4px;font-size:.68rem;color:var(--gray);font-family:'IBM Plex Mono',monospace;}
-@media(max-width:560px){
-  .bar-row{display:block;}
-  .bar-row .lbl{display:block;margin-bottom:6px;}
-  .chart-axis{margin-left:0;}
-}
+        /* ---------- INSIGHTS SECTION ---------- */
+        .insights-section {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 28px;
+            padding: 2.2rem 2rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .insights-section h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .insights-section h2 i {
+            color: #ffd966;
+            margin-right: 10px;
+        }
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.8rem;
+        }
+        .insight-item {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.2rem 1.4rem;
+            border-radius: 18px;
+            border-left: 4px solid #00b4ff;
+        }
+        .insight-item h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
+        .insight-item p {
+            color: #9aaec9;
+            font-size: 0.9rem;
+        }
+        .insight-item .highlight {
+            color: #ffd966;
+            font-weight: 700;
+        }
 
-/* STRATEGY CARDS */
-.scard{background:var(--navy3);border-radius:16px;padding:28px 26px;border-top:4px solid var(--blue);margin-bottom:18px;}
-.scard .stag{font-family:'IBM Plex Mono',monospace;font-size:.67rem;color:#9FAEC9;letter-spacing:.08em;text-transform:uppercase;}
-.scard h3{color:#fff;font-size:1.35rem;margin-top:6px;}
-.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;}
-.badge{font-family:'IBM Plex Mono',monospace;font-size:.65rem;font-weight:600;letter-spacing:.05em;padding:5px 12px;border-radius:999px;color:#fff;text-transform:uppercase;}
-.scard .summary{color:#C9D2E3;margin-top:14px;font-size:.92rem;line-height:1.65;max-width:700px;}
-.spills{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px;}
-.spill{background:rgba(255,255,255,.07);border-radius:10px;padding:11px 16px;min-width:110px;}
-.spill .sv{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:600;color:#fff;}
-.spill .sl{font-size:.7rem;color:#9FAEC9;margin-top:3px;}
-.scard ul{margin:18px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;}
-.scard li{display:flex;gap:10px;font-size:.86rem;color:#D8DFEC;line-height:1.55;}
-.scard li::before{content:"";min-width:6px;height:6px;border-radius:50%;background:var(--gold-lt);margin-top:7px;}
+        /* ---------- CTA SECTION ---------- */
+        .cta-section {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            background: linear-gradient(135deg, rgba(0, 180, 255, 0.05), rgba(123, 47, 252, 0.05));
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin-top: 2rem;
+        }
+        .cta-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .cta-section p {
+            color: #9aaec9;
+            max-width: 500px;
+            margin: 0.5rem auto 1.8rem;
+        }
+        .cta-section .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
 
-/* RISK */
-.risk-card{background:var(--card);border-left:4px solid var(--red);border-radius:10px;padding:17px 20px;box-shadow:var(--shadow);margin-bottom:12px;}
-.risk-card h4{color:var(--navy);font-size:.97rem;margin-bottom:6px;font-family:'Fraunces',serif;}
-.risk-card p{color:var(--gray);font-size:.87rem;line-height:1.6;}
+        /* ---------- FOOTER ---------- */
+        .footer {
+            margin-top: 4rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #5f7a9a;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 2rem;
+        }
+        .footer a {
+            color: #7fc9ff;
+            text-decoration: none;
+        }
 
-/* FOOTER */
-footer{background:var(--navy);color:#fff;padding:72px 0 36px;}
-footer .rule{width:56px;height:2px;background:var(--gold);margin-bottom:22px;}
-footer h2{font-size:clamp(1.8rem,5vw,2.5rem);color:#fff;}
-footer .lead{color:#C9D2E3;max-width:500px;margin-top:14px;line-height:1.65;}
-.contact-card{margin-top:30px;background:var(--navy2);border-radius:14px;padding:24px 26px;max-width:600px;}
-.contact-card .cname{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:600;color:#fff;margin-top:8px;}
-.phones{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px;}
-.phone-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.07);padding:9px 15px;border-radius:999px;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.82rem;transition:background .2s;}
-.phone-btn:hover{background:var(--gold);color:var(--navy);}
-.legal{margin-top:44px;font-size:.75rem;color:#6E7CA0;line-height:1.7;max-width:700px;border-top:1px solid rgba(255,255,255,.1);padding-top:20px;}
-</style>
+        /* ---------- RESPONSIVE ---------- */
+        @media (max-width: 640px) {
+            .header h1 { font-size: 2.2rem; }
+            .pricing-banner { flex-direction: column; align-items: stretch; gap: 1.2rem; }
+            .pricing-banner .right { justify-content: space-between; }
+            .strategy-grid { grid-template-columns: 1fr; }
+            .stats-row { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
 </head>
 <body>
 
-<nav class="nav">
-  <div class="nav-inner">
-    <div class="brand"><span class="dot"></span>Algorithmic Trading Portfolio</div>
-    <div class="nav-links">
-      <a href="#glance">Overview</a>
-      <a href="#compare">Comparison</a>
-      <a href="#strategies">Strategies</a>
-      <a href="#risk">Risk</a>
+<div class="container">
+
+    <!-- ===== HEADER ===== -->
+    <header class="header animate">
+        <div class="badge"> <i class="fas fa-robot"></i> &nbsp;Quantitative Strategy Portfolio</div>
+        <h1>Five systematic trading strategies</h1>
+        <p>Built for disciplined, rule-based execution — across Forex, Gold, Indices &amp; CFDs.</p>
+    </header>
+
+    <!-- ===== STATS ROW ===== -->
+    <div class="stats-row">
+        <div class="stat-item animate animate-delay-1">
+            <div class="stat-number"><i class="fas fa-chart-line"></i> 5</div>
+            <div class="stat-label">Systematic Strategies</div>
+        </div>
+        <div class="stat-item animate animate-delay-2">
+            <div class="stat-number"><i class="fas fa-globe"></i> 4+</div>
+            <div class="stat-label">Asset Classes</div>
+        </div>
+        <div class="stat-item animate animate-delay-3">
+            <div class="stat-number"><i class="fas fa-shield-alt"></i> 1%</div>
+            <div class="stat-label">Core Risk Per Trade</div>
+        </div>
+        <div class="stat-item animate animate-delay-4">
+            <div class="stat-number"><i class="fas fa-bolt"></i> 100%</div>
+            <div class="stat-label">Rule-Based · No Discretion</div>
+        </div>
     </div>
-    <a class="nav-cta" href="#contact">Get in touch</a>
-  </div>
-</nav>
 
-<header class="hero">
-  <div class="wrap hero-inner">
-    <span class="eyebrow" style="color:var(--gold-lt)">Quantitative Strategy Portfolio</span>
-    <h1>Five systematic trading strategies, built for disciplined, rule-based execution.</h1>
-    <p class="lead">A structured overview of five algorithmic trading systems spanning Forex, Gold, Indices and CFDs — prepared for prospective investor review.</p>
-    <div class="hero-meta">
-      <div><strong>5</strong> Strategies</div>
-      <div><strong>4</strong> Asset Classes</div>
-      <div><strong>100%</strong> Rule-Based</div>
-      <div><strong>June 2026</strong></div>
+    <!-- ===== PRICING BANNER ===== -->
+    <div class="pricing-banner animate animate-delay-2">
+        <div class="left">
+            <i class="fas fa-tags"></i>
+            <h3>Launch pricing — from <span>$150</span></h3>
+        </div>
+        <div class="right">
+            <div class="price-tag">
+                $150 <small>– $450</small>
+            </div>
+            <a href="#" class="btn-primary"><i class="fas fa-rocket"></i> Get access</a>
+            <a href="#" class="btn-outline"><i class="fas fa-file-alt"></i> View track record</a>
+        </div>
     </div>
-  </div>
-  <div class="ticker">
-    <div class="ticker-track">
-      BOS FIBONACCI ATR · 1% RISK/TRADE <span>•</span> BOS + INDUCEMENT FIB · LIQUIDITY-SWEEP ENTRIES <span>•</span> MORTAL SCALPER v2.1 · TICK-LEVEL EXECUTION <span>•</span> RTX ADVANCED HEDGING · BASKET MANAGEMENT <span>•</span> EA TREND V1.8 · ADAPTIVE RECOVERY <span>•</span>
-      BOS FIBONACCI ATR · 1% RISK/TRADE <span>•</span> BOS + INDUCEMENT FIB · LIQUIDITY-SWEEP ENTRIES <span>•</span> MORTAL SCALPER v2.1 · TICK-LEVEL EXECUTION <span>•</span> RTX ADVANCED HEDGING · BASKET MANAGEMENT <span>•</span> EA TREND V1.8 · ADAPTIVE RECOVERY <span>•</span>
+
+    <!-- ===== STRATEGY GRID ===== -->
+    <h2 style="font-size: 1.8rem; font-weight: 700; margin: 2rem 0 0.2rem;"> <i class="fas fa-cubes" style="color: #00b4ff;"></i> Strategy profiles</h2>
+    <p style="color: #9aaec9; margin-bottom: 1.5rem;">Each bot is priced based on complexity &amp; risk profile. Hover for more details.</p>
+
+    <div class="strategy-grid">
+
+        <!-- CARD 1 -->
+        <div class="strategy-card animate animate-delay-1">
+            <span class="card-badge">Trend</span>
+            <div class="card-header">
+                <div class="icon"><i class="fas fa-wave-square"></i></div>
+                <h3>BOS Fibonacci ATR</h3>
+            </div>
+            <div class="card-sub">
+                <span><i class="fas fa-flag"></i> Breakout</span>
+                <span><i class="fas fa-percent"></i> 1% risk</span>
+                <span class="risk-tag moderate">Moderate</span>
+            </div>
+            <p>Break of Structure (BOS) + Fibonacci projections + ATR trailing stops. Three-stage exit (40/40/20).</p>
+            <div class="price-row">
+                <span class="price">$150 <small>/ license</small></span>
+                <a href="#" class="btn-sm"><i class="fas fa-arrow-right"></i> Details</a>
+            </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="strategy-card animate animate-delay-2">
+            <span class="card-badge">Liquidity</span>
+            <div class="card-header">
+                <div class="icon"><i class="fas fa-crosshairs"></i></div>
+                <h3>BOS + Inducement Fib</h3>
+            </div>
+            <div class="card-sub">
+                <span><i class="fas fa-bullseye"></i> Sweep entry</span>
+                <span><i class="fas fa-percent"></i> 1% risk</span>
+                <span class="risk-tag moderate">Moderate</span>
+            </div>
+            <p>Waits for liquidity sweep (false breakout) then enters at 50% / 61.8% / 78.6% Fibonacci levels. Up to 3 staggered entries.</p>
+            <div class="price-row">
+                <span class="price">$220 <small>/ license</small></span>
+                <a href="#" class="btn-sm"><i class="fas fa-arrow-right"></i> Details</a>
+            </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="strategy-card animate animate-delay-3">
+            <span class="card-badge">Scalper</span>
+            <div class="card-header">
+                <div class="icon"><i class="fas fa-bolt"></i></div>
+                <h3>Mortal Scalper v2.1</h3>
+            </div>
+            <div class="card-sub">
+                <span><i class="fas fa-clock"></i> Tick-level</span>
+                <span><i class="fas fa-dollar-sign"></i> $1 risk</span>
+                <span class="risk-tag conservative">Conservative</span>
+            </div>
+            <p>High-frequency tick momentum. Single position, $0.50 target, automated breakeven &amp; trailing lock.</p>
+            <div class="price-row">
+                <span class="price">$180 <small>/ license</small></span>
+                <a href="#" class="btn-sm"><i class="fas fa-arrow-right"></i> Details</a>
+            </div>
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="strategy-card animate animate-delay-4">
+            <span class="card-badge">Grid</span>
+            <div class="card-header">
+                <div class="icon"><i class="fas fa-th"></i></div>
+                <h3>RTX Advanced Hedging</h3>
+            </div>
+            <div class="card-sub">
+                <span><i class="fas fa-layer-group"></i> Basket</span>
+                <span><i class="fas fa-arrows-up-down"></i> 50 pos</span>
+                <span class="risk-tag higher">Higher</span>
+            </div>
+            <p>Grid / basket averaging with 30-period MA filter. Basket-level target ($3) and stop-loss ($50). Up to 50 positions.</p>
+            <div class="price-row">
+                <span class="price">$350 <small>/ license</small></span>
+                <a href="#" class="btn-sm"><i class="fas fa-arrow-right"></i> Details</a>
+            </div>
+        </div>
+
+        <!-- CARD 5 -->
+        <div class="strategy-card animate animate-delay-5">
+            <span class="card-badge">Hedging</span>
+            <div class="card-header">
+                <div class="icon"><i class="fas fa-balance-scale"></i></div>
+                <h3>EA Trend V1.8</h3>
+            </div>
+            <div class="card-sub">
+                <span><i class="fas fa-arrows-left-right"></i> Hedging</span>
+                <span><i class="fas fa-arrows-up-down"></i> 200 pos</span>
+                <span class="risk-tag higher">Higher</span>
+            </div>
+            <p>Adaptive hedging grid — opens long/short, uses boosters (1.5×), basket TP, and adaptive recovery (H1 shift at 5% DD).</p>
+            <div class="price-row">
+                <span class="price">$450 <small>/ license</small></span>
+                <a href="#" class="btn-sm"><i class="fas fa-arrow-right"></i> Details</a>
+            </div>
+        </div>
     </div>
-  </div>
-</header>
 
-<!-- GLANCE -->
-<section class="section" id="glance">
-  <div class="wrap">
-    <span class="eyebrow">Executive Summary</span>
-    <h2>Portfolio at a glance</h2>
-    <p class="sub">Five independently engineered, fully systematic strategies — spanning institutional-style structure trading, liquidity-sweep entries, high-frequency tick scalping, and grid/basket-based approaches. Each is rule-based and emotion-free in execution.</p>
-    <div class="stat-grid">
-      <div class="stat-card b1"><div class="big">5</div><div class="sm">Systematic strategies</div></div>
-      <div class="stat-card b2"><div class="big">FX · Gold · Indices · CFDs</div><div class="sm">Multi-asset coverage</div></div>
-      <div class="stat-card b3"><div class="big">1%</div><div class="sm">Core risk-per-trade (structure strategies)</div></div>
-      <div class="stat-card b4"><div class="big">100%</div><div class="sm">Rule-based, no discretionary input</div></div>
+    <!-- ===== INSIGHTS SECTION ===== -->
+    <div class="insights-section animate animate-delay-3">
+        <h2><i class="fas fa-lightbulb"></i> Investor insights</h2>
+        <p style="color: #9aaec9; margin-bottom: 0.2rem;">Key differentiators that matter for capital allocation.</p>
+
+        <div class="insights-grid">
+            <div class="insight-item">
+                <h4><i class="fas fa-arrow-trend-up" style="color: #00b4ff;"></i> Risk spectrum</h4>
+                <p>From <span class="highlight">$1 fixed-risk</span> scalping to grid baskets — choose your volatility exposure.</p>
+            </div>
+            <div class="insight-item">
+                <h4><i class="fas fa-filter" style="color: #ffd966;"></i> Multi-layer filtering</h4>
+                <p>Session timing, spread, news blackouts — <span class="highlight">no discretionary</span> entries.</p>
+            </div>
+            <div class="insight-item">
+                <h4><i class="fas fa-arrow-right-arrow-left" style="color: #69db7c;"></i> Staged exits</h4>
+                <p>Structure strategies scale out in <span class="highlight">40% / 40% / 20%</span> tranches — not all-or-nothing.</p>
+            </div>
+            <div class="insight-item">
+                <h4><i class="fas fa-shield" style="color: #ff8a8a;"></i> Grid risk capped</h4>
+                <p>RTX &amp; EA Trend have <span class="highlight">basket SL</span> and max position limits — no unlimited martingale.</p>
+            </div>
+        </div>
     </div>
-    <div class="bullets">
-      <div class="bullet"><div class="pip"></div><p><strong>Defined entries and exits</strong> — every strategy uses pre-set rules for trade triggers, stops and targets.</p></div>
-      <div class="bullet"><div class="pip"></div><p><strong>Layered filtering</strong> — session timing, spread conditions and news events are screened before entry.</p></div>
-      <div class="bullet"><div class="pip"></div><p><strong>Staged profit-taking</strong> — the structure strategies scale out in three tranches (40% / 40% / 20%) rather than all-or-nothing exits.</p></div>
-      <div class="bullet"><div class="pip"></div><p><strong>A risk spectrum, not a single bet</strong> — from $1 fixed-risk scalping to grid-based basket trading, covering different volatility and exposure profiles.</p></div>
+
+    <!-- ===== CTA SECTION ===== -->
+    <div class="cta-section animate animate-delay-4">
+        <h2>Ready to deploy systematic alpha?</h2>
+        <p>Get full strategy documentation, live track record, and broker integration guide.</p>
+        <div class="btn-group">
+            <a href="#" class="btn-primary"><i class="fas fa-cart-plus"></i> Start with $150</a>
+            <a href="#" class="btn-outline"><i class="fas fa-chart-simple"></i> Request backtest pack</a>
+            <a href="#" class="btn-outline"><i class="fas fa-calendar-check"></i> Schedule demo</a>
+        </div>
     </div>
-  </div>
-</section>
 
-<!-- COMPARISON -->
-<section class="section alt" id="compare">
-  <div class="wrap">
-    <span class="eyebrow">At a Glance</span>
-    <h2>Strategy comparison</h2>
-    <div class="tbl-wrap" style="margin-top:28px;">
-      <table id="compare-tbl">
-        <thead><tr><th>Strategy</th><th>Type</th><th>Risk / Trade</th><th>Loss Cap</th><th>Position Style</th></tr></thead>
-        <tbody></tbody>
-      </table>
+    <!-- ===== FOOTER ===== -->
+    <div class="footer">
+        <p>
+            <i class="fas fa-triangle-exclamation" style="color: #ffd966;"></i> 
+            Systematic execution reduces emotion but does not eliminate market risk. 
+            Past performance is not indicative of future results. 
+            <br>All strategies are presented for <strong>informational &amp; discussion purposes</strong> — not financial advice. 
+            <br>© 2026 · <a href="#">Automated Trading BOTs</a> · 
+            <a href="#"><i class="fab fa-github"></i> GitHub</a>
+        </p>
     </div>
-    <p class="tbl-note">The two structure-based strategies (blue, purple) risk a fixed 1% of account equity per trade with a hard daily cap. The scalper (teal) risks a small fixed dollar amount and holds at most one position. The two hedging/grid strategies (orange, red) size risk in lots and average into baskets — a materially different exposure profile, detailed below.</p>
-  </div>
-</section>
 
-<!-- EXPOSURE CHART -->
-<section class="section" id="exposure">
-  <div class="wrap">
-    <span class="eyebrow">Visual Comparison</span>
-    <h2>Position exposure by strategy</h2>
-    <p class="sub">Maximum concurrent open positions is a useful proxy for exposure scale — showing how many simultaneous trades each strategy can carry at its busiest.</p>
-    <div class="chart-card" style="margin-top:28px;" id="barchart"></div>
-    <p class="tbl-note" style="margin-top:20px;">The structure-based and scalping strategies cap exposure at one to three concurrent positions. The two grid/hedging strategies can run into dozens or hundreds of simultaneous positions while averaging into adverse moves — a fundamentally different risk shape worth stress-testing against historical volatility events.</p>
-  </div>
-</section>
+</div>
+<!-- end container -->
 
-<!-- STRATEGIES -->
-<section class="section dark" id="strategies">
-  <div class="wrap">
-    <span class="eyebrow">Strategy Profiles</span>
-    <h2 class="light">The five strategies, in detail</h2>
-    <p class="sub light" style="margin-bottom:32px;">Each profile covers the strategy's core stats, mechanics and risk classification, drawn directly from its specification.</p>
-    <div id="scards"></div>
-  </div>
-</section>
-
-<!-- RISK -->
-<section class="section pinkbg" id="risk">
-  <div class="wrap">
-    <span class="eyebrow" style="color:var(--red)">Risk Disclosure</span>
-    <h2>Important considerations</h2>
-    <div style="margin-top:28px;" id="rcards"></div>
-  </div>
-</section>
-
-<!-- FOOTER / CONTACT -->
-<footer id="contact">
-  <div class="wrap">
-    <div class="rule"></div>
-    <h2>Thank you</h2>
-    <p class="lead">We welcome the opportunity to walk through live performance data, account statements and due-diligence materials for any of the five strategies in this portfolio.</p>
-    <div class="contact-card">
-      <span class="eyebrow" style="color:var(--gold-lt)">Contact</span>
-      <div class="cname">Ganesh M</div>
-      <div class="phones">
-        <a class="phone-btn" href="tel:+919600901095">📞 +91 96009 01095</a>
-        <a class="phone-btn" href="tel:+918754466566">📞 +91 87544 66566</a>
-      </div>
-    </div>
-    <p class="legal">This page summarizes strategy descriptions and parameters as provided by the strategy developer. Figures shown (risk %, drawdown caps, position limits) are stated specifications, not independently verified or audited trading results. Systematic, rule-based execution reduces emotional decision-making but does not eliminate market risk. Past or hypothetical performance is not a reliable indicator of future results. Before allocating capital, investors should request a verifiable live or walk-forward track record and review broker/account statements directly. This page is provided for informational and discussion purposes only and does not constitute investment, legal or financial advice. · Strictly Private &amp; Confidential · June 2026</p>
-  </div>
-</footer>
-
-<script>
-const ROWS=[
-  ["BOS Fibonacci ATR","Trend Breakout","1%","3% / 6%","Single, staged exit"],
-  ["BOS + Inducement Fib","Liquidity Sweep","1%","4% / 8%","Up to 3 staggered entries"],
-  ["Mortal Scalper v2.1","Tick Scalping","$1 fixed","$0.50 target","1 trade max"],
-  ["RTX Advanced Hedging","Grid / Basket","Lot-based","$50 basket SL","Up to 50 grid positions"],
-  ["EA Trend V1.8","Hedging Grid","Lot-based","30% max DD","Up to 200 combined"]
-];
-const tb=document.querySelector('#compare-tbl tbody');
-ROWS.forEach(r=>{const tr=document.createElement('tr');tr.innerHTML=r.map(c=>`<td>${c}</td>`).join('');tb.appendChild(tr);});
-
-const BARS=[
-  {n:"BOS Fibonacci ATR",v:1,c:"var(--blue)"},
-  {n:"BOS + Inducement Fib",v:3,c:"var(--purple)"},
-  {n:"Mortal Scalper v2.1",v:1,c:"var(--teal)"},
-  {n:"RTX Advanced Hedging",v:50,c:"var(--orange)"},
-  {n:"EA Trend V1.8",v:200,c:"var(--crimson)"}
-];
-const bc=document.getElementById('barchart');
-const LMN=Math.log10(0.8),LMX=Math.log10(400);
-BARS.forEach(b=>{
-  const pct=((Math.log10(b.v)-LMN)/(LMX-LMN))*100;
-  const row=document.createElement('div');row.className='bar-row';
-  row.innerHTML=`<div class="lbl">${b.n}</div><div class="bar-line"><div class="bar-track"><span class="bar-fill" style="width:${pct.toFixed(1)}%;background:${b.c};"></span></div><div class="bval">${b.v}</div></div>`;
-  bc.appendChild(row);
-});
-const ax=document.createElement('div');ax.className='chart-axis';ax.textContent='1 — — 10 — — 100 — — 400  (log scale, max concurrent positions)';bc.appendChild(ax);
-
-const STRATS=[
-  {name:"BOS Fibonacci ATR",tag:"Algorithmic Trading System",ac:"var(--blue)",type:"Trend-Following Breakout",risk:"Moderate",rc:"var(--amber)",
-   summary:"Trades confirmed Break of Structure (BOS) events. Fibonacci projections define dynamic stop-loss and profit targets, with ATR-based trailing stops to extend gains through strong trends.",
-   stats:[["1%","Risk / Trade"],["3%","Daily Drawdown Cap"],["6%","Daily Profit Lock"]],
-   feats:["Detects significant swing highs/lows, waits for a confirmed breakout","Multi-layer filter: market structure, higher-timeframe trend, session (London & NY), spread, news","Three-stage exit model — 40% / 40% / 20% — with automatic breakeven protection","Friday position liquidation to avoid weekend exposure","Built for Forex, Gold, Indices and CFDs"]},
-  {name:"BOS + Inducement Fibonacci",tag:"Algorithmic Trading System",ac:"var(--purple)",type:"Smart-Money / Liquidity Sweep",risk:"Moderate",rc:"var(--amber)",
-   summary:"Builds on BOS logic by waiting for a false retracement (inducement / liquidity sweep) before entering at discounted Fibonacci levels — designed to reduce false breakouts and improve entry precision.",
-   stats:[["1%","Risk / Trade"],["4%","Daily Loss Cap"],["8%","Daily Profit Lock"]],
-   feats:["Phase 1: confirms a genuine Break of Structure before any setup is considered","Phase 2: waits for the liquidity sweep that triggers retail stop-losses to complete","Phase 3: scales into up to three staggered entries at 50% / 61.8% / 78.6% retracement","Same 40% / 40% / 20% staged exit, breakeven adjustment and ATR trailing stop","Higher-timeframe trend confirmation, session and spread filters, news blackout windows"]},
-  {name:"Mortal Scalper v2.1",tag:"Tick Scalper",ac:"var(--teal)",type:"High-Frequency Tick Momentum",risk:"Conservative Exposure",rc:"var(--green)",
-   summary:"Reacts directly to incoming tick flow rather than waiting on candle closes — designed to capture short bursts of momentum within seconds, while keeping exposure deliberately small.",
-   stats:[["$1","Default Risk / Trade"],["$0.50","Profit Objective"],["1 Max","Position Count"]],
-   feats:["Continuously measures short-term tick momentum; only acts above a defined threshold","Single active position at a time — no martingale, no averaging, no grid exposure","Spread filtering before every entry","Automated breakeven lock at $0.20, trailing profit lock at $0.15","Broker stop-level validation built into trade management"]},
-  {name:"RTX Advanced Hedging EA",tag:"v3.10",ac:"var(--orange)",type:"Grid / Basket Averaging",risk:"Higher — Grid-Based",rc:"var(--red)",
-   summary:"Combines trend identification with progressive grid deployment, averaging into a basket of positions to improve entry price during temporary adverse moves, then managing risk at the basket level rather than per trade.",
-   stats:[["$3","Basket Target"],["$50","Basket Stop Loss"],["50","Max Grid Positions"]],
-   feats:["30-period moving average trend filter, RSI momentum validation, session selection","Configurable grid spacing with controlled lot progression, independent buy/sell baskets","Profits realized from the aggregate basket; automatic liquidation and signal reset on completion","Position growth is capped — but up to 50 concurrent grid positions","Note: averaging into adverse price moves carries the same structural risk as martingale systems; the cap limits but does not remove that risk in fast, trending markets"]},
-  {name:"EA Trend V1.8",tag:"Hedging Bot",ac:"var(--crimson)",type:"Adaptive Hedging Grid",risk:"Higher — Grid-Based",rc:"var(--red)",
-   summary:"Opens long and short positions according to internal trend logic, then manages exposure through progressive position expansion ('boosters') and basket-level take-profit / trailing closure, with an adaptive timeframe shift under drawdown stress.",
-   stats:[["30%","Max Drawdown"],["30 pips","Grid Distance"],["100+100","Max Positions"]],
-   feats:["Up to 100 buy and 100 sell positions simultaneously; booster multiplier 1.5×, capped at 1.0 lot","Basket take-profit, basket trailing closure and profit locking manage the portfolio as a whole","Adaptive recovery: shifts to H1 and becomes more selective once drawdown exceeds threshold, reverts to M15 after recovery","Recovery threshold set at 5%; maximum drawdown ceiling at 30%","Largest combined position count of the five strategies — sizing and risk limits warrant close scrutiny before allocation"]}
-];
-const sc=document.getElementById('scards');
-STRATS.forEach(s=>{
-  const d=document.createElement('div');d.className='scard';d.style.borderTopColor=s.ac;
-  d.innerHTML=`<div class="stag">${s.tag}</div><h3>${s.name}</h3>
-  <div class="badges"><span class="badge" style="background:${s.ac}">${s.type}</span><span class="badge" style="background:${s.rc}">${s.risk}</span></div>
-  <p class="summary">${s.summary}</p>
-  <div class="spills">${s.stats.map(([v,l])=>`<div class="spill"><div class="sv">${v}</div><div class="sl">${l}</div></div>`).join('')}</div>
-  <ul>${s.feats.map(f=>`<li>${f}</li>`).join('')}</ul>`;
-  sc.appendChild(d);
-});
-
-const RISKS=[
-  ["Source of this overview","This page summarizes strategy descriptions and parameters as provided by the strategy developer. Figures shown (risk %, drawdown caps, position limits) are stated specifications, not independently verified or audited trading results."],
-  ["No guarantee of returns","Systematic and rule-based execution reduces emotional decision-making but does not eliminate market risk. Past or hypothetical performance, where referenced elsewhere, is not a reliable indicator of future results."],
-  ["Grid and basket strategies carry distinct risk","RTX Advanced Hedging and EA Trend V1.8 use grid-style averaging into adverse price moves. Capped position counts and basket stop-losses limit but do not remove the structural risk associated with this approach, particularly in fast-moving or strongly trending markets."],
-  ["Independent verification recommended","Before allocating capital, investors should request a verifiable live or walk-forward track record, review broker/account statements directly, and consider independent backtesting across varied market regimes, including stress periods."],
-  ["Not financial advice","This page is provided for informational and discussion purposes only and does not constitute investment, legal or financial advice. Prospective investors should consult their own qualified advisors before making any investment decision."]
-];
-const rc=document.getElementById('rcards');
-RISKS.forEach(([t,b])=>{const d=document.createElement('div');d.className='risk-card';d.innerHTML=`<h4>${t}</h4><p>${b}</p>`;rc.appendChild(d);});
-</script>
 </body>
 </html>
