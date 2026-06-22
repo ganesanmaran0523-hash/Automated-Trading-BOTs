@@ -45,6 +45,10 @@
             0% { opacity: 0; transform: scale(0.8); }
             100% { opacity: 1; transform: scale(1); }
         }
+        @keyframes modalFade {
+            0% { opacity: 0; transform: scale(0.95) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
         .animate {
             animation: fadeUp 0.7s ease forwards;
         }
@@ -85,6 +89,56 @@
             color: #9aaec9;
             max-width: 680px;
             margin: 0.75rem auto 0;
+        }
+
+        /* ---------- CONTACT BAR ---------- */
+        .contact-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem 2.5rem;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 60px;
+            padding: 0.8rem 2.2rem;
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .contact-bar a {
+            color: #c8d6ec;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: color 0.3s;
+        }
+        .contact-bar a:hover {
+            color: #00b4ff;
+        }
+        .contact-bar a i {
+            font-size: 1.2rem;
+        }
+        .contact-bar .whatsapp-link {
+            background: #25D366;
+            color: #fff;
+            padding: 0.4rem 1.4rem;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+        .contact-bar .whatsapp-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(37, 211, 102, 0.4);
+            color: #fff;
+        }
+        .contact-bar .whatsapp-link i {
+            font-size: 1.1rem;
         }
 
         /* ---------- STATS ROW ---------- */
@@ -202,6 +256,25 @@
             color: #fff;
             background: rgba(0, 180, 255, 0.08);
         }
+        .btn-whatsapp {
+            background: #25D366;
+            border: none;
+            color: #fff;
+            font-weight: 700;
+            padding: 0.8rem 2.2rem;
+            border-radius: 60px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .btn-whatsapp:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+        }
 
         /* ---------- STRATEGY GRID ---------- */
         .strategy-grid {
@@ -222,6 +295,7 @@
             flex-direction: column;
             position: relative;
             overflow: hidden;
+            cursor: pointer;
         }
         .strategy-card:hover {
             transform: translateY(-8px);
@@ -329,6 +403,15 @@
             background: rgba(0, 180, 255, 0.25);
             color: #fff;
         }
+        .strategy-card .click-hint {
+            position: absolute;
+            bottom: 0.8rem;
+            right: 1.5rem;
+            font-size: 0.65rem;
+            color: #5f7a9a;
+            opacity: 0.6;
+            letter-spacing: 0.3px;
+        }
 
         /* ---------- INSIGHTS SECTION ---------- */
         .insights-section {
@@ -398,6 +481,155 @@
             gap: 1rem;
         }
 
+        /* ---------- MODAL ---------- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-content {
+            background: #131a2a;
+            border-radius: 32px;
+            max-width: 620px;
+            width: 100%;
+            padding: 2.2rem 2.5rem;
+            position: relative;
+            animation: modalFade 0.35s ease forwards;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal-close {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: none;
+            color: #9aaec9;
+            font-size: 1.4rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+        }
+        .modal-content .modal-icon {
+            font-size: 2.2rem;
+            color: #00b4ff;
+            margin-bottom: 0.5rem;
+        }
+        .modal-content h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+        .modal-content .modal-sub {
+            color: #8ba0c0;
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 1.5rem;
+        }
+        .modal-content .modal-sub span i {
+            margin-right: 4px;
+            color: #5f8bb3;
+        }
+        .modal-content .modal-body {
+            color: #c8d6ec;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        .modal-content .modal-body ul {
+            list-style: none;
+            padding: 0;
+            margin: 0.8rem 0;
+        }
+        .modal-content .modal-body ul li {
+            padding: 0.3rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .modal-content .modal-body ul li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: #00b4ff;
+        }
+        .modal-content .modal-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #fff;
+            margin: 0.5rem 0 1rem;
+        }
+        .modal-content .modal-price small {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #8ba0c0;
+        }
+        .modal-content .modal-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        .modal-content .modal-actions .btn-whatsapp-sm {
+            background: #25D366;
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            padding: 0.6rem 1.8rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .modal-content .modal-actions .btn-whatsapp-sm:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.3);
+        }
+        .modal-content .modal-actions .btn-outline-sm {
+            background: transparent;
+            border: 1.5px solid #4a6a8f;
+            color: #c0d4f0;
+            font-weight: 600;
+            padding: 0.6rem 1.8rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            text-decoration: none;
+        }
+        .modal-content .modal-actions .btn-outline-sm:hover {
+            border-color: #00b4ff;
+            color: #fff;
+            background: rgba(0, 180, 255, 0.08);
+        }
+
         /* ---------- FOOTER ---------- */
         .footer {
             margin-top: 4rem;
@@ -411,14 +643,34 @@
             color: #7fc9ff;
             text-decoration: none;
         }
+        .footer .footer-contact {
+            margin-top: 0.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.2rem 2rem;
+        }
+        .footer .footer-contact a {
+            color: #9aaec9;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+        .footer .footer-contact a:hover {
+            color: #00b4ff;
+        }
 
         /* ---------- RESPONSIVE ---------- */
         @media (max-width: 640px) {
             .header h1 { font-size: 2.2rem; }
+            .contact-bar { border-radius: 30px; padding: 0.8rem 1.2rem; flex-wrap: wrap; gap: 0.8rem; }
             .pricing-banner { flex-direction: column; align-items: stretch; gap: 1.2rem; }
             .pricing-banner .right { justify-content: space-between; }
             .strategy-grid { grid-template-columns: 1fr; }
             .stats-row { grid-template-columns: 1fr 1fr; }
+            .modal-content { padding: 1.8rem 1.5rem; }
         }
     </style>
 </head>
@@ -432,6 +684,19 @@
         <h1>Five systematic trading strategies</h1>
         <p>Built for disciplined, rule-based execution — across Forex, Gold, Indices &amp; CFDs.</p>
     </header>
+
+    <!-- ===== CONTACT BAR ===== -->
+    <div class="contact-bar animate animate-delay-1">
+        <a href="https://wa.me/918754466566" target="_blank" class="whatsapp-link">
+            <i class="fab fa-whatsapp"></i> +91 87544 66566
+        </a>
+        <a href="mailto:ganesanmaran0523@gmail.com">
+            <i class="fas fa-envelope"></i> ganesanmaran0523@gmail.com
+        </a>
+        <a href="#">
+            <i class="fas fa-phone"></i> +91 87544 66566
+        </a>
+    </div>
 
     <!-- ===== STATS ROW ===== -->
     <div class="stats-row">
@@ -463,19 +728,20 @@
             <div class="price-tag">
                 $150 <small>– $450</small>
             </div>
-            <a href="#" class="btn-primary"><i class="fas fa-rocket"></i> Get access</a>
-            <a href="#" class="btn-outline"><i class="fas fa-file-alt"></i> View track record</a>
+            <a href="https://wa.me/918754466566?text=Hi%20Ganesan%2C%20I'm%20interested%20in%20your%20trading%20bots" target="_blank" class="btn-whatsapp">
+                <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+            </a>
         </div>
     </div>
 
     <!-- ===== STRATEGY GRID ===== -->
     <h2 style="font-size: 1.8rem; font-weight: 700; margin: 2rem 0 0.2rem;"> <i class="fas fa-cubes" style="color: #00b4ff;"></i> Strategy profiles</h2>
-    <p style="color: #9aaec9; margin-bottom: 1.5rem;">Each bot is priced based on complexity &amp; risk profile. Hover for more details.</p>
+    <p style="color: #9aaec9; margin-bottom: 1.5rem;">Click any card for full details. Each bot is priced based on complexity &amp; risk profile.</p>
 
     <div class="strategy-grid">
 
         <!-- CARD 1 -->
-        <div class="strategy-card animate animate-delay-1">
+        <div class="strategy-card animate animate-delay-1" data-strategy="bos-fibonacci">
             <span class="card-badge">Trend</span>
             <div class="card-header">
                 <div class="icon"><i class="fas fa-wave-square"></i></div>
@@ -489,12 +755,13 @@
             <p>Break of Structure (BOS) + Fibonacci projections + ATR trailing stops. Three-stage exit (40/40/20).</p>
             <div class="price-row">
                 <span class="price">$150 <small>/ license</small></span>
-                <a href="#" class="btn-sm"><i class="fas fa-arrow-right"></i> Details</a>
+                <span class="btn-sm"><i class="fas fa-arrow-right"></i> Details</span>
             </div>
+            <span class="click-hint"><i class="fas fa-hand-pointer"></i> Click for details</span>
         </div>
 
         <!-- CARD 2 -->
-        <div class="strategy-card animate animate-delay-2">
+        <div class="strategy-card animate animate-delay-2" data-strategy="bos-inducement">
             <span class="card-badge">Liquidity</span>
             <div class="card-header">
                 <div class="icon"><i class="fas fa-crosshairs"></i></div>
@@ -508,12 +775,13 @@
             <p>Waits for liquidity sweep (false breakout) then enters at 50% / 61.8% / 78.6% Fibonacci levels. Up to 3 staggered entries.</p>
             <div class="price-row">
                 <span class="price">$220 <small>/ license</small></span>
-                <a href="#" class="btn-sm"><i class="fas fa-arrow-right"></i> Details</a>
+                <span class="btn-sm"><i class="fas fa-arrow-right"></i> Details</span>
             </div>
+            <span class="click-hint"><i class="fas fa-hand-pointer"></i> Click for details</span>
         </div>
 
         <!-- CARD 3 -->
-        <div class="strategy-card animate animate-delay-3">
+        <div class="strategy-card animate animate-delay-3" data-strategy="mortal-scalper">
             <span class="card-badge">Scalper</span>
             <div class="card-header">
                 <div class="icon"><i class="fas fa-bolt"></i></div>
@@ -527,12 +795,13 @@
             <p>High-frequency tick momentum. Single position, $0.50 target, automated breakeven &amp; trailing lock.</p>
             <div class="price-row">
                 <span class="price">$180 <small>/ license</small></span>
-                <a href="#" class="btn-sm"><i class="fas fa-arrow-right"></i> Details</a>
+                <span class="btn-sm"><i class="fas fa-arrow-right"></i> Details</span>
             </div>
+            <span class="click-hint"><i class="fas fa-hand-pointer"></i> Click for details</span>
         </div>
 
         <!-- CARD 4 -->
-        <div class="strategy-card animate animate-delay-4">
+        <div class="strategy-card animate animate-delay-4" data-strategy="rtx-hedging">
             <span class="card-badge">Grid</span>
             <div class="card-header">
                 <div class="icon"><i class="fas fa-th"></i></div>
@@ -546,12 +815,13 @@
             <p>Grid / basket averaging with 30-period MA filter. Basket-level target ($3) and stop-loss ($50). Up to 50 positions.</p>
             <div class="price-row">
                 <span class="price">$350 <small>/ license</small></span>
-                <a href="#" class="btn-sm"><i class="fas fa-arrow-right"></i> Details</a>
+                <span class="btn-sm"><i class="fas fa-arrow-right"></i> Details</span>
             </div>
+            <span class="click-hint"><i class="fas fa-hand-pointer"></i> Click for details</span>
         </div>
 
         <!-- CARD 5 -->
-        <div class="strategy-card animate animate-delay-5">
+        <div class="strategy-card animate animate-delay-5" data-strategy="ea-trend">
             <span class="card-badge">Hedging</span>
             <div class="card-header">
                 <div class="icon"><i class="fas fa-balance-scale"></i></div>
@@ -565,8 +835,9 @@
             <p>Adaptive hedging grid — opens long/short, uses boosters (1.5×), basket TP, and adaptive recovery (H1 shift at 5% DD).</p>
             <div class="price-row">
                 <span class="price">$450 <small>/ license</small></span>
-                <a href="#" class="btn-sm"><i class="fas fa-arrow-right"></i> Details</a>
+                <span class="btn-sm"><i class="fas fa-arrow-right"></i> Details</span>
             </div>
+            <span class="click-hint"><i class="fas fa-hand-pointer"></i> Click for details</span>
         </div>
     </div>
 
@@ -600,9 +871,47 @@
         <h2>Ready to deploy systematic alpha?</h2>
         <p>Get full strategy documentation, live track record, and broker integration guide.</p>
         <div class="btn-group">
-            <a href="#" class="btn-primary"><i class="fas fa-cart-plus"></i> Start with $150</a>
-            <a href="#" class="btn-outline"><i class="fas fa-chart-simple"></i> Request backtest pack</a>
-            <a href="#" class="btn-outline"><i class="fas fa-calendar-check"></i> Schedule demo</a>
+            <a href="https://wa.me/918754466566?text=Hi%20Ganesan%2C%20I%20want%20to%20start%20with%20the%20%24150%20bot" target="_blank" class="btn-whatsapp">
+                <i class="fab fa-whatsapp"></i> Start with $150
+            </a>
+            <a href="https://wa.me/918754466566?text=Hi%20Ganesan%2C%20I%20want%20the%20backtest%20pack%20for%20your%20bots" target="_blank" class="btn-outline">
+                <i class="fas fa-chart-simple"></i> Request backtest pack
+            </a>
+            <a href="https://wa.me/918754466566?text=Hi%20Ganesan%2C%20I%20want%20to%20schedule%20a%20demo%20for%20your%20trading%20bots" target="_blank" class="btn-outline">
+                <i class="fas fa-calendar-check"></i> Schedule demo
+            </a>
+        </div>
+    </div>
+
+    <!-- ===== MODAL ===== -->
+    <div class="modal-overlay" id="strategyModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+            <div class="modal-icon" id="modalIcon"><i class="fas fa-wave-square"></i></div>
+            <h2 id="modalTitle">BOS Fibonacci ATR</h2>
+            <div class="modal-sub" id="modalSub">
+                <span><i class="fas fa-tag"></i> Trend Breakout</span>
+                <span><i class="fas fa-percent"></i> 1% risk per trade</span>
+                <span id="modalRiskTag" class="risk-tag moderate">Moderate</span>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <p>Break of Structure (BOS) confirmation with Fibonacci projections for dynamic stop-loss and profit targets. ATR-based trailing stops extend gains through strong trends.</p>
+                <ul>
+                    <li>Multi-layer filter: market structure, higher-timeframe trend, session (London & NY), spread, news</li>
+                    <li>Three-stage exit model — 40% / 40% / 20% — with automatic breakeven protection</li>
+                    <li>Friday position liquidation to avoid weekend exposure</li>
+                    <li>Built for Forex, Gold, Indices and CFDs</li>
+                </ul>
+            </div>
+            <div class="modal-price" id="modalPrice">$150 <small>/ license</small></div>
+            <div class="modal-actions">
+                <a href="https://wa.me/918754466566?text=Hi%20Ganesan%2C%20I'm%20interested%20in%20the%20[BOT_NAME]%20bot" target="_blank" class="btn-whatsapp-sm" id="modalWhatsAppBtn">
+                    <i class="fab fa-whatsapp"></i> Buy on WhatsApp
+                </a>
+                <a href="https://wa.me/918754466566?text=Hi%20Ganesan%2C%20I%20want%20more%20details%20about%20the%20[BOT_NAME]%20bot" target="_blank" class="btn-outline-sm" id="modalDetailsBtn">
+                    <i class="fas fa-info-circle"></i> Ask for details
+                </a>
+            </div>
         </div>
     </div>
 
@@ -612,14 +921,182 @@
             <i class="fas fa-triangle-exclamation" style="color: #ffd966;"></i> 
             Systematic execution reduces emotion but does not eliminate market risk. 
             Past performance is not indicative of future results. 
-            <br>All strategies are presented for <strong>informational &amp; discussion purposes</strong> — not financial advice. 
-            <br>© 2026 · <a href="#">Automated Trading BOTs</a> · 
-            <a href="#"><i class="fab fa-github"></i> GitHub</a>
+            <br>All strategies are presented for <strong>informational &amp; discussion purposes</strong> — not financial advice.
         </p>
+        <div class="footer-contact">
+            <a href="https://wa.me/918754466566" target="_blank"><i class="fab fa-whatsapp"></i> +91 87544 66566</a>
+            <a href="mailto:ganesanmaran0523@gmail.com"><i class="fas fa-envelope"></i> ganesanmaran0523@gmail.com</a>
+            <a href="#"><i class="fas fa-phone"></i> +91 87544 66566</a>
+        </div>
+        <p style="margin-top: 1rem;">© 2026 · <a href="https://ganesanmaran0523-hash.github.io/Automated-Trading-BOTs/">Automated Trading BOTs</a></p>
     </div>
 
 </div>
 <!-- end container -->
+
+<script>
+    // ===== STRATEGY DATA =====
+    const strategyData = {
+        'bos-fibonacci': {
+            title: 'BOS Fibonacci ATR',
+            icon: 'fa-wave-square',
+            type: 'Trend Breakout',
+            risk: '1% risk per trade',
+            riskTag: 'Moderate',
+            riskClass: 'moderate',
+            price: '$150',
+            body: `
+                <p>Break of Structure (BOS) confirmation with Fibonacci projections for dynamic stop-loss and profit targets. ATR-based trailing stops extend gains through strong trends.</p>
+                <ul>
+                    <li>Multi-layer filter: market structure, higher-timeframe trend, session (London & NY), spread, news</li>
+                    <li>Three-stage exit model — 40% / 40% / 20% — with automatic breakeven protection</li>
+                    <li>Friday position liquidation to avoid weekend exposure</li>
+                    <li>Built for Forex, Gold, Indices and CFDs</li>
+                </ul>
+            `
+        },
+        'bos-inducement': {
+            title: 'BOS + Inducement Fibonacci',
+            icon: 'fa-crosshairs',
+            type: 'Liquidity Sweep',
+            risk: '1% risk per trade',
+            riskTag: 'Moderate',
+            riskClass: 'moderate',
+            price: '$220',
+            body: `
+                <p>Builds on BOS logic by waiting for a false retracement (inducement / liquidity sweep) before entering at discounted Fibonacci levels — designed to reduce false breakouts and improve entry precision.</p>
+                <ul>
+                    <li>Phase 1: confirms a genuine Break of Structure before any setup is considered</li>
+                    <li>Phase 2: waits for the liquidity sweep that triggers retail stop-losses to complete</li>
+                    <li>Phase 3: scales into up to three staggered entries at 50% / 61.8% / 78.6% retracement</li>
+                    <li>Same 40% / 40% / 20% staged exit, breakeven adjustment and ATR trailing stop</li>
+                </ul>
+            `
+        },
+        'mortal-scalper': {
+            title: 'Mortal Scalper v2.1',
+            icon: 'fa-bolt',
+            type: 'Tick Scalping',
+            risk: '$1 fixed risk',
+            riskTag: 'Conservative',
+            riskClass: 'conservative',
+            price: '$180',
+            body: `
+                <p>Reacts directly to incoming tick flow rather than waiting on candle closes — designed to capture short bursts of momentum within seconds, while keeping exposure deliberately small.</p>
+                <ul>
+                    <li>Continuously measures short-term tick momentum; only acts above a defined threshold</li>
+                    <li>Single active position at a time — no martingale, no averaging, no grid exposure</li>
+                    <li>Spread filtering before every entry</li>
+                    <li>Automated breakeven lock at $0.20, trailing profit lock at $0.15</li>
+                </ul>
+            `
+        },
+        'rtx-hedging': {
+            title: 'RTX Advanced Hedging EA',
+            icon: 'fa-th',
+            type: 'Grid / Basket Averaging',
+            risk: 'Lot-based risk',
+            riskTag: 'Higher',
+            riskClass: 'higher',
+            price: '$350',
+            body: `
+                <p>Combines trend identification with progressive grid deployment, averaging into a basket of positions to improve entry price during temporary adverse moves, then managing risk at the basket level rather than per trade.</p>
+                <ul>
+                    <li>30-period moving average trend filter, RSI momentum validation, session selection</li>
+                    <li>Configurable grid spacing with controlled lot progression, independent buy/sell baskets</li>
+                    <li>Profits realized from the aggregate basket; automatic liquidation and signal reset on completion</li>
+                    <li>Position growth is capped — but up to 50 concurrent grid positions</li>
+                </ul>
+            `
+        },
+        'ea-trend': {
+            title: 'EA Trend V1.8',
+            icon: 'fa-balance-scale',
+            type: 'Adaptive Hedging Grid',
+            risk: 'Lot-based risk',
+            riskTag: 'Higher',
+            riskClass: 'higher',
+            price: '$450',
+            body: `
+                <p>Opens long and short positions according to internal trend logic, then manages exposure through progressive position expansion ('boosters') and basket-level take-profit / trailing closure, with an adaptive timeframe shift under drawdown stress.</p>
+                <ul>
+                    <li>Up to 100 buy and 100 sell positions simultaneously; booster multiplier 1.5×, capped at 1.0 lot</li>
+                    <li>Basket take-profit, basket trailing closure and profit locking manage the portfolio as a whole</li>
+                    <li>Adaptive recovery: shifts to H1 and becomes more selective once drawdown exceeds threshold</li>
+                    <li>Recovery threshold set at 5%; maximum drawdown ceiling at 30%</li>
+                </ul>
+            `
+        }
+    };
+
+    // ===== MODAL LOGIC =====
+    const modal = document.getElementById('strategyModal');
+    const modalClose = document.getElementById('modalClose');
+    const modalIcon = document.getElementById('modalIcon');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSub = document.getElementById('modalSub');
+    const modalRiskTag = document.getElementById('modalRiskTag');
+    const modalBody = document.getElementById('modalBody');
+    const modalPrice = document.getElementById('modalPrice');
+    const modalWhatsAppBtn = document.getElementById('modalWhatsAppBtn');
+    const modalDetailsBtn = document.getElementById('modalDetailsBtn');
+
+    // Open modal on card click
+    document.querySelectorAll('.strategy-card').forEach(card => {
+        card.addEventListener('click', function(e) {
+            // Don't open if clicking the "Details" button (which is inside)
+            if (e.target.closest('.btn-sm')) return;
+
+            const key = this.dataset.strategy;
+            const data = strategyData[key];
+            if (!data) return;
+
+            // Populate modal
+            modalIcon.innerHTML = `<i class="fas ${data.icon}"></i>`;
+            modalTitle.textContent = data.title;
+            
+            // Update sub
+            const subSpans = modalSub.querySelectorAll('span');
+            if (subSpans.length >= 2) {
+                subSpans[0].innerHTML = `<i class="fas fa-tag"></i> ${data.type}`;
+                subSpans[1].innerHTML = `<i class="fas fa-percent"></i> ${data.risk}`;
+            }
+            modalRiskTag.textContent = data.riskTag;
+            modalRiskTag.className = `risk-tag ${data.riskClass}`;
+
+            modalBody.innerHTML = data.body;
+            modalPrice.innerHTML = `${data.price} <small>/ license</small>`;
+
+            // Update WhatsApp buttons with bot name
+            const botName = encodeURIComponent(data.title);
+            modalWhatsAppBtn.href = `https://wa.me/918754466566?text=Hi%20Ganesan%2C%20I'm%20interested%20in%20the%20${botName}%20bot`;
+            modalDetailsBtn.href = `https://wa.me/918754466566?text=Hi%20Ganesan%2C%20I%20want%20more%20details%20about%20the%20${botName}%20bot`;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    // Close modal
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e) {
+        if (e.target === this) closeModal();
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeModal();
+    });
+
+    // ===== WHATSAPP LINKS FOR CTA BUTTONS =====
+    // The CTA buttons already have WhatsApp links in the HTML
+    // All "Request backtest" and "Schedule demo" buttons now go to WhatsApp
+
+    console.log('🚀 Automated Trading BOTs — Portfolio page loaded with WhatsApp integration');
+</script>
 
 </body>
 </html>
